@@ -60,18 +60,31 @@ def encode_sentence_fr(text, vocab):
     ids += [ vocab[EOS_TOKEN]]
     return torch.tensor(ids, dtype=torch.long)
 
-def collate_fn(batch):
-    # batch: list of (src_tensor, tgt_tensor)
-    src_list, tgt_list = zip(*batch)
-    # sort by src length desc (required for pack_padded_sequence)
-    sorted_pairs = sorted(zip(src_list, tgt_list), key=lambda x: -x[0].size(0))
-    src_list, tgt_list = zip(*sorted_pairs)
-    src_padded = pad_sequence(src_list, batch_first=True, padding_value=(vocab_en[PAD_TOKEN] if USE_TORCHTEXT else vocab_en.stoi[PAD_TOKEN]))
-    tgt_padded = pad_sequence(tgt_list, batch_first=True, padding_value=(vocab_fr[PAD_TOKEN] if USE_TORCHTEXT else vocab_fr.stoi[PAD_TOKEN]))
-    src_lengths = torch.tensor([s.size(0) for s in src_list], dtype=torch.long)
-    tgt_lengths = torch.tensor([t.size(0) for t in tgt_list], dtype=torch.long)
-    return src_padded, tgt_padded, src_lengths, tgt_lengths
+def make_collate_fn(vocab_en, vocab_fr):
+    PAD_ID_EN = vocab_en[PAD_TOKEN]
+    PAD_ID_FR = vocab_fr[PAD_TOKEN]
 
+    def collate_fn(batch):
+        src_list, tgt_list = zip(*batch)
+
+        # sort by src length desc
+        sorted_pairs = sorted(zip(src_list, tgt_list), 
+                              key=lambda x: -x[0].size(0))
+        src_list, tgt_list = zip(*sorted_pairs)
+
+        src_padded = pad_sequence(src_list, batch_first=True, padding_value=PAD_ID_EN)
+        tgt_padded = pad_sequence(tgt_list, batch_first=True, padding_value=PAD_ID_FR)
+
+        # Ensure tgt_padded is not longer than src_padded
+        max_src_len = src_padded.size(1)
+        tgt_padded = tgt_padded[:, :max_src_len]
+
+        src_lengths = torch.tensor([s.size(0) for s in src_list], dtype=torch.long)
+        tgt_lengths = torch.tensor([t.size(0) for t in tgt_list], dtype=torch.long)
+
+        return src_padded, tgt_padded, src_lengths, tgt_lengths
+
+    return collate_fn
 class ParallelDataset(Dataset):
     def __init__(self, pairs, src_vocab, tgt_vocab):
         self.pairs = pairs
