@@ -48,17 +48,15 @@ def tokens_to_ids(tokens, vocab, special_map=None):
 
 def encode_sentence_en(text, vocab):
     toks = en_tokenizer(text)
-    ids = [ vocab[SOS_TOKEN]]
-    ids += tokens_to_ids(toks, vocab)
-    ids += [ vocab[EOS_TOKEN]]
+    ids = tokens_to_ids(toks, vocab)
     return torch.tensor(ids, dtype=torch.long)
 
 def encode_sentence_fr(text, vocab):
     toks = fr_tokenizer(text)
-    ids = [ vocab[SOS_TOKEN]]
+    ids = [vocab[SOS_TOKEN]]
     ids += tokens_to_ids(toks, vocab)
-    ids += [ vocab[EOS_TOKEN]]
-    return torch.tensor(ids, dtype=torch.long)
+    ids += [vocab[EOS_TOKEN]]
+    return torch.tensor(ids, dtype=torch.long)  
 
 def make_collate_fn(vocab_en, vocab_fr):
     PAD_ID_EN = vocab_en[PAD_TOKEN]
@@ -74,10 +72,6 @@ def make_collate_fn(vocab_en, vocab_fr):
 
         src_padded = pad_sequence(src_list, batch_first=True, padding_value=PAD_ID_EN)
         tgt_padded = pad_sequence(tgt_list, batch_first=True, padding_value=PAD_ID_FR)
-
-        # Ensure tgt_padded is not longer than src_padded
-        max_src_len = src_padded.size(1)
-        tgt_padded = tgt_padded[:, :max_src_len]
 
         src_lengths = torch.tensor([s.size(0) for s in src_list], dtype=torch.long)
         tgt_lengths = torch.tensor([t.size(0) for t in tgt_list], dtype=torch.long)
