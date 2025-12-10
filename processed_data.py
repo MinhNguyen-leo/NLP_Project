@@ -127,17 +127,12 @@ def load_vocab(path):
     return VocabLike(stoi, itos)
 
 def save_dataset_pytorch(ds, path):
-    """
-    ds = list of (src_tensor, tgt_tensor)
-    """
     torch.save(ds, path)
 
 
 def load_dataset_pytorch(path):
-    """
-    return list of (src_tensor, tgt_tensor)
-    """
     return torch.load(path)
 
 def create_loader(ds, batch_size, shuffle, collate_fn):
     return DataLoader(ds, batch_size=batch_size, shuffle=shuffle, collate_fn=collate_fn)
+
