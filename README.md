@@ -1,7 +1,7 @@
 # NLP_Project
 Neural Machine Translation (EN → FR)
 🚀 Seq2Seq • Bahdanau Attention • Beam Search • BPE Tokenization
-<p align="center"> <img src="https://img.shields.io/badge/PyTorch-2.0+-red?logo=pytorch" /> <img src="https://img.shields.io/badge/Python-3.9+-blue?logo=python" /> <img src="https://img.shields.io/badge/License-MIT-green" /> <img src="https://img.shields.io/badge/Model-Baseline%20%7C%20Attention-orange" /> </p> <p align="center"> <img src="./images/LSTM.png.png" width="750"> </p>
+<p align="center"> <img src="https://img.shields.io/badge/PyTorch-2.0+-red?logo=pytorch" /> <img src="https://img.shields.io/badge/Python-3.9+-blue?logo=python" /> <img src="https://img.shields.io/badge/License-MIT-green" /> <img src="https://img.shields.io/badge/Model-Baseline%20%7C%20Attention-orange" /> </p> <p align="center"> <img src="./images/LSTM.png" width="750"> </p>
 
 
 # 📑 Table of Contents
