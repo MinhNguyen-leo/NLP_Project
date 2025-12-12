@@ -1,7 +1,7 @@
 # NLP_Project
 Neural Machine Translation (EN → FR)
 🚀 Seq2Seq • Bahdanau Attention • Beam Search • BPE Tokenization
-<p align="center"> <img src="https://img.shields.io/badge/PyTorch-2.0+-red?logo=pytorch" /> <img src="https://img.shields.io/badge/Python-3.9+-blue?logo=python" /> <img src="https://img.shields.io/badge/License-MIT-green" /> <img src="https://img.shields.io/badge/Model-Baseline%20%7C%20Attention-orange" /> </p> <p align="center"> <img src="./images/LSTM.png" width="750"> </p>
+<p align="center"> <img src="https://img.shields.io/badge/PyTorch-2.0+-red?logo=pytorch" /> <img src="https://img.shields.io/badge/Python-3.9+-blue?logo=python" /> <img src="https://img.shields.io/badge/License-MIT-green" /> <img src="https://img.shields.io/badge/Model-Baseline%20%7C%20Attention-orange" /> </p> <p align="center"> <img src="./images/LSTM.png.png" width="750"> </p>
 
 
 # 📑 Table of Contents
@@ -75,7 +75,7 @@ Sử dụng tập dữ liệu **Tatoeba / ManyThings EN–FR**, gồm:
 
 ## **4.1. Baseline – Seq2Seq LSTM**
 <p align="center">
-  <img src="images/baseline_arch.png" width="650">
+  <img src="images/LSTM.png" width="650">
 </p>
 
 - Encoder: 2-layer LSTM  
@@ -87,7 +87,7 @@ Sử dụng tập dữ liệu **Tatoeba / ManyThings EN–FR**, gồm:
 
 ## **4.2. Mô hình mở rộng – Bahdanau Attention**
 <p align="center">
-  <img src="images/attention_arch.png" width="650">
+  <img src="images/LSTM_Attention.png" width="650">
 </p>
 
 Cải thiện:
